@@ -1,7 +1,7 @@
 
-# Admin User Stories
+# 1. Admin User Stories
 
-## **Log into the portal with your username and password to manage the platform securely:**
+## 1.1 **Log into the portal with your username and password to manage the platform securely:**
 As an Admin, I want to into the portal with my username and password, so that I can administer the system securely.
 
 **Acceptance Criteria:**
@@ -16,7 +16,7 @@ As an Admin, I want to into the portal with my username and password, so that I 
 **Notes:**
 -  
 
-## **Log out of the portal to protect system access**
+## 1.2 **Log out of the portal to protect system access**
 As an Admin, I want to log out of the portal, to prevent unauthorized user access under my account when I am not using the portal.
 
 **Acceptance Criteria:**
@@ -31,7 +31,7 @@ As an Admin, I want to log out of the portal, to prevent unauthorized user acces
 **Notes:**
 - 
 
-## **Add doctors to the portal**
+## 1.3 **Add doctors to the portal**
 As an Admin, I want to add doctors to the portal, so the added doctors can do their work on the portal
 
 **Acceptance Criteria:**
@@ -48,7 +48,7 @@ As an Admin, I want to add doctors to the portal, so the added doctors can do th
 **Notes:**
 
 
-## **Delete doctor's profile from the portal**
+## 1.4 **Delete doctor's profile from the portal**
 As an Admin, I want to delete a doctor from the portal, so the doctor no longer has access when their employment ends.
 
 **Acceptance Criteria:**
@@ -63,7 +63,7 @@ As an Admin, I want to delete a doctor from the portal, so the doctor no longer 
 **Notes:**
 - 
 
-## **Run a stored procedure in MySQL CLI to get the number of appointments per month and track usage statistics**
+## 1.5 **Run a stored procedure in MySQL CLI to get the number of appointments per month and track usage statistics**
 As an Admin, I want to be able to run a specifically named stored procedure in the MySQL CLI, so I can report to management on the number of appointments per month and track usage statistics.
 **Acceptance Criteria:**
 1. A named parameterized stored procedure that I can run on the MySQL CLI
@@ -77,9 +77,9 @@ As an Admin, I want to be able to run a specifically named stored procedure in t
 **Notes:**
 - 
 
-# Patient User Stories
+# 2. Patient User Stories
 
-## **View a list of doctors without logging in to explore options before registering**
+## 2.1 **View a list of doctors without logging in to explore options before registering**
 As a Patient, I want to anonymously (without login) view a list of doctors and their specialties on the portal, to help me decide on whether to go to the clinic for care.
 
 **Acceptance Criteria:**
@@ -89,10 +89,11 @@ As a Patient, I want to anonymously (without login) view a list of doctors and t
 **Priority:** High
 
 **Story Points:** 3
+
 **Notes:**
 - 
 
-## **Sign up using your email and password to book appointments**
+## 2.2 **Sign up using your email and password to book appointments**
 As a Patient, I want to sign up on the portal using my email and a password, to book appointments at the clinic.
 
 **Acceptance Criteria:**
@@ -105,7 +106,7 @@ As a Patient, I want to sign up on the portal using my email and a password, to 
 **Notes:**
 - Capture name and phone number as well since that would be required for appointments
 
-## **Log into the portal to manage your bookings**
+## 2.3 **Log into the portal to manage your bookings**
 As a Patient, I want to log into the portal, so I can management my appointment bookings
 
 **Acceptance Criteria:**
@@ -117,12 +118,14 @@ As a Patient, I want to log into the portal, so I can management my appointment 
 7. On successful login, show appointments page 
 
 **Priority:** High
+
 **Story Points:** 13
+
 **Notes:**
 - Login form should have forgotten password button, to enable password reset if forgotten
 - Login form should have Sign up button in case user has not yet signed up.
 
-## **Log out of the portal to secure your account**
+## 2.4 **Log out of the portal to secure your account**
 As a Patient, I want to log out of the portal, to protect my data on the portal and prevent unauthorized access.
 
 **Acceptance Criteria:**
@@ -137,7 +140,7 @@ As a Patient, I want to log out of the portal, to protect my data on the portal 
 **Notes:**
 - 
 
-## **Log in and book an hour-long appointment to consult with a doctor**
+## 2.5 **Log in and book an hour-long appointment to consult with a doctor**
 As a Patient, I want to log in and book an hour-long appointment, so I can consult with a doctor
 
 **Acceptance Criteria:**
@@ -153,7 +156,7 @@ As a Patient, I want to log in and book an hour-long appointment, so I can consu
 - Login form should have forgotten password button, to enable password reset if forgotten
 - Login form should have Sign up button in case user has not yet signed up.
 
-## **View my upcoming appointments so that I can prepare accordingly**
+## 2.6 **View my upcoming appointments so that I can prepare accordingly**
 As a Patient, I want to view my upcoming appointments, so that I can prepare accordingly
 
 **Acceptance Criteria:**
@@ -169,9 +172,9 @@ As a Patient, I want to view my upcoming appointments, so that I can prepare acc
 - Login form should have forgotten password button, to enable password reset if forgotten
 - Login form should have Sign up button in case user has not yet signed up.
 
-# Doctor User Stories
+# 3. Doctor User Stories
 
-## **Log into the portal to manage your appointments**
+## 3.1 **Log into the portal to manage your appointments**
 As a Doctor, I want to view my upcoming appointments, so that I can review and manage my appointments
 
 **Acceptance Criteria:**
@@ -187,7 +190,7 @@ As a Doctor, I want to view my upcoming appointments, so that I can review and m
 **Notes:**
 - Login form should have forgotten password button, to enable password reset if forgotten
 
-## **Log out of the portal to protect my data**
+## 3.2 **Log out of the portal to protect my data**
 As a Doctor, I want to log out of the portal, to protect my data on the portal and prevent unauthorized access.
 
 **Acceptance Criteria:**
@@ -202,7 +205,7 @@ As a Doctor, I want to log out of the portal, to protect my data on the portal a
 **Notes:**
 - 
 
-## **View my appointment calendar to stay organized**
+## 3.3 **3View my appointment calendar to stay organized**
 As a Doctor, I want to view my appointment calendar, so that I can stay organized to fulfil my appointments.
 
 **Acceptance Criteria:**
@@ -217,7 +220,7 @@ As a Doctor, I want to view my appointment calendar, so that I can stay organize
 **Notes:**
 - Viewing appointment calender required prior login
 
-## **Mark your unavailability to inform patients only the available slots**
+## 3.4 **Mark your unavailability to inform patients only the available slots**
 As a Doctor, I want to mark my unavailability on my calendar, so patients are informed of only available slots and book accordingly.
 
 **Acceptance Criteria:**
@@ -231,7 +234,7 @@ As a Doctor, I want to mark my unavailability on my calendar, so patients are in
 
 **Notes:**
 
-## **Update your profile with specialization and contact information so that patients have up-to-date information**
+## 3.5 **Update your profile with specialization and contact information so that patients have up-to-date information**
 As a Doctor, I want to update my profile on the portal with specialization and contact information, so that patients have up to date information.
 
 **Acceptance Criteria:**
@@ -246,7 +249,7 @@ As a Doctor, I want to update my profile on the portal with specialization and c
 
 **Notes:**
 
-## **View the patient details for upcoming appointments so that I can be prepared**
+## 3.6 **View the patient details for upcoming appointments so that I can be prepared**
 As a Doctor, I want to view patient details for upcoming appointments, so that I can be well prepared for appointments
 
 **Acceptance Criteria:**
