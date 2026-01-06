@@ -1,7 +1,7 @@
 ## MySQL Database Design
 The MySQL database schema consists of the following tables:
 
-### Table: person
+### Table: person -- This is the main table that stores common information for all types of users (patients, doctors, admins).
 - person_id: INT, Primary Key, Auto Increment
 - person_type: VARCHAR(20), Not Null  -- 'patient', 'doctor', 'admin'
 - email: VARCHAR(100) not null, unique
@@ -17,7 +17,7 @@ The MySQL database schema consists of the following tables:
 - country: VARCHAR(50)
 - created_at: TIMESTAMP, Default CURRENT_TIMESTAMP
 
-### Table: person_auth
+### Table: person_auth -- This table stores authentication information for all users. It has a one-to-one relationship with the person table.
 - person_id: INT, Primary Key, Foreign Key → person(person_id)
 - email: VARCHAR(100), Not Null
 - password_hash: VARCHAR(255), Not Null
@@ -25,7 +25,7 @@ The MySQL database schema consists of the following tables:
 
 ### Table: patient
 - person_id: INT, Primary Key, Foreign Key → person(person_id)
-- date_of_birth: DATE
+- date_of_birth: DATE, Not Null
 - emergency_contact_name: VARCHAR(100)
 - emergency_contact_phone: VARCHAR(15)
 - insurance_provider: VARCHAR(100)
@@ -37,7 +37,7 @@ The MySQL database schema consists of the following tables:
 
 ### Table: doctor
 - person_id: INT, Primary Key, Foreign Key → person(person_id)
-- specialty: VARCHAR(100)
+- specialty: VARCHAR(255), Not Null -- 'Cardiology', 'Dermatology', 'Pediatrics', etc. separated by commas for multiple specialties
 - license_number: VARCHAR(50)
 - clinic_address: VARCHAR(255)
 
@@ -52,17 +52,6 @@ The MySQL database schema consists of the following tables:
 - reason: VARCHAR(255)
 - status: VARCHAR(50), Default 'scheduled' -- 'scheduled', 'completed', 'cancelled', 'no-show'
 - doctor_notes: TEXT    
-
-### Table: prescription
-- prescription_id: INT, Primary Key, Auto Increment
-- patient_id: INT, Foreign Key → patient(person_id)
-- doctor_id: INT, Foreign Key → doctor(person_id)
-- appointment_id: INT, Foreign Key → appointment(appointment_id), Nullable
-- medication_name: VARCHAR(100), Not Null
-- dosage: VARCHAR(50), Not Null
-- frequency: VARCHAR(50), Not Null
-- prescribed_date: DATE, Default CURRENT_DATE
-- instructions: TEXT
 
 ### Table: billing_info
 - billing_id: INT, Primary Key, Auto Increment
@@ -85,7 +74,22 @@ The MySQL database schema consists of the following tables:
 
 ## MongoDB Collection Design
 
-### Collection: prescriptions
+###### Collection: prescription
+- prescription_id: INT, Primary Key, Auto Increment
+- patient_id: INT, Foreign Key → patient(person_id)
+- doctor_id: INT, Foreign Key → doctor(person_id)
+- appointment_id: INT, Foreign Key → appointment(appointment_id), Nullable
+- medication_name: VARCHAR(100), Not Null
+- dosage: VARCHAR(50), Not Null
+- frequency: VARCHAR(50), Not Null
+- prescribed_date: DATE, Default CURRENT_DATE
+- instructions: TEXT
+- doctor_notes: TEXT
+- refill_count: INT, Default 0
+- pharmacy: {
+    name: VARCHAR(100),
+    location: VARCHAR(255)
+}
 
 ```json
 {
@@ -94,6 +98,9 @@ The MySQL database schema consists of the following tables:
   "appointmentId": 51,
   "medication": "Paracetamol",
   "dosage": "500mg",
+  "frequency": "Every 6 hours",
+  "prescribedDate": "2024-06-01",
+  "instructions": "Take with food to avoid stomach upset.",
   "doctorNotes": "Take 1 tablet every 6 hours.",
   "refillCount": 2,
   "pharmacy": {

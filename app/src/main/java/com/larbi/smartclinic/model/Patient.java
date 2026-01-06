@@ -1,5 +1,6 @@
 package com.larbi.smartclinic.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,10 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @DiscriminatorValue("PATIENT")
@@ -21,13 +26,25 @@ public class Patient extends Person {
 	@JsonManagedReference // To handle bidirectional JSON serialization
     private List<Appointment> appointments = new ArrayList<>();
 
+    @NotNull
+    @Column(name = "date_of_birth", nullable = false)
+    @Past (message = "Date of birth must be in the past")
+    private LocalDate dateOfBirth;
+    
     @Column(name = "insurance_provider")
     private String insuranceProvider;
+    
     @Column(name = "insurance_policy_number")
+    @Size(min = 3, max = 100)
     private String insurancePolicyNumber;
+    
     @Column(name = "emergency_contact_name")
-    private String emergencyContactName;
+    @Size(min = 3, max = 100)
+   private String emergencyContactName;
+    
     @Column(name = "emergency_contact_phone")
+    @Pattern(regexp = "\\d{10}", message="Invalid phone number format")
+    @Size(min = 10, max = 15)
     private String emergencyContactPhone;
     @Column(name = "medical_history")   
     private String medicalHistory;
@@ -35,7 +52,9 @@ public class Patient extends Person {
     private String allergies;
     @Column(name = "current_medications")
     private String currentMedications;
+    
     @Column(name = "preferred_pharmacy")
+    @Size(min = 3, max = 100)
     private String preferredPharmacy;
     
 	public String getInsuranceProvider() {

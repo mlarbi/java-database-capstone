@@ -19,14 +19,14 @@ create table person(
 create table person_auth(
     person_id int not null primary key,
     email varchar(100) not null,
-    password_hash varchar(255) not null,
+    password varchar(255) not null,
     foreign key (person_id) references person(person_id),
     unique(person_id, email)
 );
 
 create table patient(
     person_id int not null primary key,
-    date_of_birth date,
+    date_of_birth date not null,
     emergency_contact_name varchar(100),
     emergency_contact_phone varchar(15),
     insurance_provider varchar(100),
@@ -40,7 +40,7 @@ create table patient(
 
 create table doctor(
     person_id int not null primary key,
-    specialty varchar(100) not null,
+    specialty varchar(255) not null,
     license_number varchar(50),
     clinic_address varchar(255),
     foreign key (person_id) references person(person_id)

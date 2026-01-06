@@ -16,7 +16,10 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SecondaryTable;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "person")
@@ -35,38 +38,62 @@ public abstract class Person {
 
     @NotNull(message = "Email is required") 
 	@Column(name = "email", table = "person_auth", unique = true)
+    @Size(min = 6, max = 100)
+    @Email( message = "Please provide a valid email address")
     private String email;
 
 	@NotNull(message = "Password is required")
-    @Column(name = "password_hash", table = "person_auth")
-    private String passwordHash;
+    @Column(name = "password", table = "person_auth")
+    @Size(min = 3, max = 255)
+    private String password;
 
 	@NotNull(message = "First name is required")
     @Column(name = "first_name", nullable = false)
+    @Size(min = 3, max = 50)
     private String firstName;
     
     @NotNull(message = "Last name is required")
     @Column(name = "last_name", nullable = false)
+    @Size(min = 3, max = 50)
     private String lastName;
     
     @Column(name = "middle_name")
+    @Size(min = 3, max = 50)
     private String middleName;
+    
+    @NotNull(message="Phone number is required")
     @Column(name = "phone_number")
+    @Pattern(regexp = "\\d{10}", message="Invalid phone number format")
+    @Size(min = 10, max = 15)
     private String phoneNumber;
-    @Column(name = "address_line1")
+    
+    @Size(min = 3, max = 100)
+    @Column(name = "address_line1")  
     private String addressLine1;
+    
     @Column(name = "address_line2")
+    @Size(min = 3, max = 100)
     private String addressLine2;
+    
     @Column(name = "city")      
+    @Size(min = 3, max = 50)
     private String city;
+    
     @Column(name = "state")
+    @Size(min = 3, max = 50)
     private String state;
+    
     @Column(name = "zip_code")
+    @Size(min =5, max = 10)
     private String zipCode;
+    
     @Column(name = "country")
+    @Size(min = 3, max = 100)
     private String country;
+    
     @Column(name = "created_at")
     private Timestamp createdAt;
+    
     @Column(name = "updated_at")
     private Timestamp updatedAt;
     
@@ -88,12 +115,7 @@ public abstract class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPasswordHash() {
-		return passwordHash;
-	}
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
-	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -166,5 +188,10 @@ public abstract class Person {
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

@@ -8,7 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "payment")
@@ -32,6 +35,8 @@ public class Payment {
 
 	@NotNull(message = "Amount is required")
     @Column(name = "amount", nullable = false)
+	@Digits(integer = 8, fraction = 2, message = "Amount must have up to 8 integer digits and 2 decimals")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price cannot be negative")
     private Double amount;
 
 	@NotNull(message = "Payment date is required")
@@ -40,7 +45,8 @@ public class Payment {
 
 	@NotNull(message = "Payment method is required")
     @Column(name = "payment_method")
-    private String paymentMethod;
+	@Size(min = 3, max = 50)
+	private String paymentMethod;
     
 	public Long getPaymentId() {
 		return paymentId;

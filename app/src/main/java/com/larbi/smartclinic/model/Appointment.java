@@ -2,17 +2,22 @@ package com.larbi.smartclinic.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class Appointment {
 
@@ -40,6 +45,7 @@ public class Appointment {
 
 	@NotNull(message = "Appointment date is required")
     @Column(name = "appt_date", nullable = false)
+	@Future(message = "Appointment date must be in the future.")
     private LocalDate appointmentDate;
 
 	@NotNull(message = "Start time is required")
@@ -54,10 +60,15 @@ public class Appointment {
     private Boolean isDrBlockedSlot = false;
 
     @Column(name = "reason")
+    @Size(min = 3, max = 255)
     private String reason;
 
     @Column(name = "status")  
+    @Size(min = 3, max = 50)
     private String status;
+
+    @ElementCollection
+    private List<String> statusList;
 
 	public Long getAppointmentId() {
 		return appointmentId;

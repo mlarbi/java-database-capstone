@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @DiscriminatorValue("DOCTOR")
@@ -24,13 +26,19 @@ public class Doctor extends Person {
 
 	@NotNull(message = "Specialties  required")
     @Column(name = "specialty", nullable = false)
+    @Size(min = 3, max = 255)
     private String specialty;
 
     @Column(name = "license_number")
+    @Size(min = 3, max = 50)
     private String licenseNumber;
 
     @Column(name = "clinic_address")
+    @Size(min = 3, max = 255)
     private String clinicAddress;
+    
+    @ElementCollection
+    private List<String> availableTimes;
     
 	public String getSpecialty() {
 		return specialty;
