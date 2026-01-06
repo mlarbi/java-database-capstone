@@ -3,6 +3,7 @@ The MySQL database schema consists of the following tables:
 
 ### Table: person
 - person_id: INT, Primary Key, Auto Increment
+- person_type: VARCHAR(20), Not Null  -- 'patient', 'doctor', 'admin'
 - email: VARCHAR(100) not null, unique
 - first_name: VARCHAR(50), Not Null
 - last_name: VARCHAR(50), Not Null
@@ -20,11 +21,7 @@ The MySQL database schema consists of the following tables:
 - person_id: INT, Primary Key, Foreign Key → person(person_id)
 - email: VARCHAR(100), Not Null
 - password_hash: VARCHAR(255), Not Null
-- is_admin: BOOLEAN, Default false
-- is_patient: BOOLEAN, Default false
-- is_doctor: BOOLEAN, Default false 
 - unique(person_id, email)  
-
 
 ### Table: patient
 - person_id: INT, Primary Key, Foreign Key → person(person_id)
@@ -33,28 +30,28 @@ The MySQL database schema consists of the following tables:
 - emergency_contact_phone: VARCHAR(15)
 - insurance_provider: VARCHAR(100)
 - insurance_policy_number: VARCHAR(50)
+- allergies: TEXT
+- medical_history: TEXT
+- current_medications: TEXT
+- preferred_pharmacy: VARCHAR(100)
 
 ### Table: doctor
 - person_id: INT, Primary Key, Foreign Key → person(person_id)
 - specialty: VARCHAR(100)
+- license_number: VARCHAR(50)
+- clinic_address: VARCHAR(255)
 
 ### Table: appointment
 - appointment_id: INT, Primary Key, Auto Increment
 - patient_id: INT, Foreign Key → patient(person_id)
-- doctor_id: INT, Foreign Key → doctor(person_id)
-- appointment_date: DATETIME, Not Null
-- reason: VARCHAR(255)
-- status: VARCHAR(50), Default 'scheduled'
-- doctor_notes: TEXT    
-
-### Table: doctor_calendar
-- calendar_id: INT, Primary Key, Auto Increment
 - doctor_id: INT, Not Null, Foreign Key → doctor(person_id)
-- calendar_date: DATE, Not Null
+- appt_date: DATE, Not Null
 - start_time: TIME, Not Null
 - end_time: TIME, Not Null
-- is_available: BOOLEAN, Default true
-- unique(doctor_id, calendar_date, start_time, end_time)
+- is_dr_blocked_slot: BOOLEAN, Default false
+- reason: VARCHAR(255)
+- status: VARCHAR(50), Default 'scheduled' -- 'scheduled', 'completed', 'cancelled', 'no-show'
+- doctor_notes: TEXT    
 
 ### Table: prescription
 - prescription_id: INT, Primary Key, Auto Increment
@@ -67,38 +64,40 @@ The MySQL database schema consists of the following tables:
 - prescribed_date: DATE, Default CURRENT_DATE
 - instructions: TEXT
 
-### Table: appointment_history
-- history_id: INT, Primary Key, Auto Increment
-- appointment_id: INT, Foreign Key → appointment(appointment_id)
-- status: VARCHAR(50), Not Null
-- changed_at: TIMESTAMP, Default CURRENT_TIMESTAMP
-- notes: TEXT   
-
-### Table: clinic_location
-- location_id: INT, Primary Key, Auto Increment
-- name: VARCHAR(100), Not Null
-- address_line1: VARCHAR(100)
-- address_line2: VARCHAR(100)
-- city: VARCHAR(50)
-- state: VARCHAR(50)
-- zip_code: VARCHAR(10)
-- country: VARCHAR(50)
-- phone_number: VARCHAR(15) 
-
-### Table: payment
-- payment_id: INT, Primary Key, Auto Increment
-- appointment_id: INT, Foreign Key → appointment(appointment_id)
-- amount: DECIMAL(10,2), Not Null
-- payment_date: TIMESTAMP, Default CURRENT_TIMESTAMP
-- payment_method: VARCHAR(50)
-
 ### Table: billing_info
 - billing_id: INT, Primary Key, Auto Increment
-- patient_id: INT, Foreign Key → patient(person_id)
+- patient_id: INT, Not Null, Foreign Key → patient(person_id)
 - insurance_provider: VARCHAR(100)
 - insurance_policy_number: VARCHAR(50)
 - billing_address: VARCHAR(255)
 - billing_amount: DECIMAL(10,2), Not Null
 - due_date: DATE, Not Null, Default CURRENT_DATE + INTERVAL 30 DAY  
 
+### Table: payment
+- payment_id: INT, Primary Key, Auto Increment
+- billing_id: INT, Not Null, Foreign Key → billing_info(billing_id)
+- patient_id: INT, Not Null, Foreign Key → patient(person_id)
+- appointment_id: INT, Not Null, Foreign Key → appointment(appointment_id)
+- amount: DECIMAL(10,2), Not Null
+- payment_date: TIMESTAMP, Default CURRENT_TIMESTAMP
+- payment_method: VARCHAR(50), Not Null
+
+
 ## MongoDB Collection Design
+
+### Collection: prescriptions
+
+```json
+{
+  "_id": "ObjectId('64abc123456')",
+  "patientName": "John Smith",
+  "appointmentId": 51,
+  "medication": "Paracetamol",
+  "dosage": "500mg",
+  "doctorNotes": "Take 1 tablet every 6 hours.",
+  "refillCount": 2,
+  "pharmacy": {
+    "name": "Walgreens SF",
+    "location": "Market Street"
+  }
+}
