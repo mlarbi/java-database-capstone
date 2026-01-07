@@ -1,23 +1,25 @@
 package com.larbi.smartclinic.model;
 
-import jakarta.persistence.DiscriminatorValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "admin")
-@DiscriminatorValue("ADMIN")
-// If the admin table's PK is also called 'person_id', use this:
-@PrimaryKeyJoinColumn(name = "person_id")  // Maps Admin's ID to Person's ID
-public class Admin extends Person{
-	private String adminDepartment;
+public class Admin {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public String getAdminDepartment() {
-		return adminDepartment;
-	}
+    @NotNull(message = "Username is required")
+    private String username;
 
-	public void setAdminDepartment(String adminDepartment) {
-		this.adminDepartment = adminDepartment;
-	}
+    @NotNull(message = "Password Required")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 }
