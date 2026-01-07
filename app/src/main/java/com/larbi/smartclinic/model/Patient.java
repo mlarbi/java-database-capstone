@@ -12,6 +12,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
@@ -19,10 +20,11 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @DiscriminatorValue("PATIENT")
+@PrimaryKeyJoinColumn(name = "person_id") // Maps Patient's ID to Person's ID
 public class Patient extends Person {
 
-    // mappedBy refers to the "patient_id" field in the Appointment entity
-    @OneToMany(mappedBy = "patient_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // mappedBy refers to the "patientid" PROPERTY in the Appointment entity
+    @OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference // To handle bidirectional JSON serialization
     private List<Appointment> appointments = new ArrayList<>();
 

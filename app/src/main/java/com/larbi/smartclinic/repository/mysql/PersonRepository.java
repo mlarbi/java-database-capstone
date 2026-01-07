@@ -1,4 +1,4 @@
-package com.larbi.smartclinic.repository;
+package com.larbi.smartclinic.repository.mysql;
 
 import java.util.Optional;
 
@@ -11,7 +11,7 @@ import com.larbi.smartclinic.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 	@Query("""
-	        SELECT new com.larbi.smartclinic.model.AuthDTO(p.id, p.passwordHash, p.personType)
+	        SELECT new com.larbi.smartclinic.model.AuthDTO(p.personId, p.password, p.personType)
 	        FROM Person p
 	        WHERE p.email = :email
 	    """)

@@ -1,5 +1,6 @@
 package com.larbi.smartclinic.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -37,7 +38,7 @@ public class Payment {
     @Column(name = "amount", nullable = false)
 	@Digits(integer = 8, fraction = 2, message = "Amount must have up to 8 integer digits and 2 decimals")
     @DecimalMin(value = "0.0", inclusive = true, message = "Price cannot be negative")
-    private Double amount;
+    private BigDecimal amount;
 
 	@NotNull(message = "Payment date is required")
     @Column(name = "payment_date", nullable = false)
@@ -72,10 +73,10 @@ public class Payment {
 	public void setAppointmentId(Long appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
-	public void setAmount(Double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 	public String getPaymentMethod() {

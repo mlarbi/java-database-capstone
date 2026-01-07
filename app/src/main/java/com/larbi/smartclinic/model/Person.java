@@ -23,15 +23,16 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "person")
-@SecondaryTable(name = "person_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "person_id"))
 @Inheritance(strategy = InheritanceType.JOINED)
+@SecondaryTable(name = "person_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "person_id"))
 @DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
 @DynamicUpdate
-public abstract class Person {
+public  abstract class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long personId;
+    @Column(name = "person_id")
+     protected Long personId;
 
     @Column(name = "person_type", insertable = false, updatable = false)
     private String personType;

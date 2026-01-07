@@ -1,4 +1,4 @@
-package com.larbi.smartclinic.repository;
+package com.larbi.smartclinic.repository.mysql;
 
 import java.time.LocalDateTime;
 
@@ -10,14 +10,4 @@ import com.larbi.smartclinic.model.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-	@Query("""
-	        SELECT COUNT(a) > 0 FROM Appointment a 
-	        WHERE a.doctor.id = :doctorId 
-	        AND (:startTime < a.endTime AND :endTime > a.startTime)
-	    """)
-	    boolean isDoctorBooked(
-	        @Param("doctorId") Long doctorId, 
-	        @Param("startTime") LocalDateTime startTime, 
-	        @Param("endTime") LocalDateTime endTime
-	    );
 }
