@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Clinic Management System</title>
+    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Smart Clinic</h1>
+        <nav>
+            <ul>
+                <li><a href="/doctors">Doctors</a></li>
+                <li><a href="/patients">Patients</a></li>
+                <li><a href="/appointments">Appointments</a></li>
+                <li><a href="/prescriptions">Prescriptions</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <div class="wrapper">
+
+            </div>
+        </div>
+        <h2>Select Your Role</h2>
+        <button id="admin" class="role-btn" onclick="navigateTo('admin')">Admin</button>
+        <button id="doctor" class="role-btn" onclick="navigateTo('doctors')">Doctor</button>
+        <button id="patient" class="role-btn" onclick="navigateTo('patients')">Patient</button>
+        <p>Use the navigation above to manage doctors, patients, appointments, and prescriptions.</p>
+    </main>
+    <script src="./js/util.js" defer></script>
+    <script src="./js/render.js" defer></script>
+    <script src="./js/components/header.js" defer></script>
+    <script src="./js/components/footer.js" defer></script>
+    <footer>
+        <p>&copy; 2026 Smart Clinic. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

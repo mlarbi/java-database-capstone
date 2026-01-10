@@ -6,4 +6,6 @@ import com.larbi.smartclinic.model.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
+	public Admin findByUsername(String username);
+	
 }

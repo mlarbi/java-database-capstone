@@ -1,13 +1,39 @@
 package com.larbi.smartclinic.repository.mysql;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.larbi.smartclinic.model.Appointment;
 
-public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+import jakarta.transaction.Transactional;
 
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+	@Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId AND a.appointmentTime BETWEEN :start AND :end")
+    List<Appointment> findByDoctorIdAndAppointmentTimeBetween(Long doctorId, LocalDateTime start, LocalDateTime end);
+	
+	@Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId AND LOWER(a.patient.name) LIKE LOWER(CONCAT('%', :patientName, '%')) AND a.appointmentTime BETWEEN :start AND :end")
+	List<Appointment> findByDoctorIdAndPatient_NameContainingIgnoreCaseAndAppointmentTimeBetween(Long doctorId, String patientName, LocalDateTime start, LocalDateTime end);
+	
+	@Modifying
+	@Transactional
+	void deleteAllByDoctorId(Long doctorId);
+	
+	List<Appointment> findByPatientId(Long patientId);
+	
+	@Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId AND a.status = :status ORDER BY a.appointmentTime ASC")
+	List<Appointment>  findByPatient_IdAndStatusOrderByAppointmentTimeAsc(Long patientId, int status
+);
+	@Query("SELECT a FROM Appointment a WHERE LOWER(a.doctor.name) LIKE LOWER(CONCAT('%', :doctorName, '%')) AND a.patient.id = :patientId")
+	List<Appointment> filterByDoctorNameAndPatientId(String doctorName, Long patientId);
+	
+	@Query("SELECT a FROM Appointment a WHERE LOWER(a.doctor.name) LIKE LOWER(CONCAT('%', :doctorName, '%')) AND a.patient.id = :patientId AND a.status = :status")
+	List<Appointment> filterByDoctorNameAndPatientIdAndStatus(String doctorName, Long patientId, int status);
+
+	@Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId AND DATE(a.appointmentTime) = :date")
+	List<Appointment> findByDoctorIdAndDate(Long doctorId, LocalDate date);	
 }

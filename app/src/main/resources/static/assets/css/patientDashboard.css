@@ -1,0 +1,116 @@
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    align-items: center;
+
+}
+
+.card-actions .button {
+    padding: 8px 16px;
+    font-size: 0.9em;
+}
+
+.card-actions:hover {
+    background-color: #0056b3;
+}
+
+.ripple {
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(52, 152, 219, 0.4); /* Booking brand color */
+    transform: scale(0);
+    animation: ripple-effect 0.8s ease-out;
+    pointer-events: none; /* Let clicks pass through */
+    z-index: 9999;
+}
+
+@keyframes ripple-effect {
+    to {
+        transform: scale(4); /* Expands outwards */
+        opacity: 0;          /* Fades out smoothly */
+    }
+}
+
+/*<div id="ripple-container"></div>
+
+<button onclick="createRipple(event)"></button>
+
+JS:
+function createRipple(event) {
+    const container = document.getElementById('ripple-container');
+    const ripple = document.createElement('div');
+    
+    // Size of the initial circle
+    const size = 100; 
+    
+    // Positioning logic for fixed placement
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${event.clientX - size / 2}px`;
+    ripple.style.top = `${event.clientY - size / 2}px`;
+    
+    ripple.classList.add('ripple');
+    
+    container.appendChild(ripple);
+
+    // Clean up DOM after animation finishes
+    ripple.addEventListener('animationend', () => {
+        ripple.remove();
+    });
+}
+*/
+
+.modalApp {
+    /* Positioning */
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%); /* Start hidden at bottom */
+    
+    /* Layout & Styling */
+    width: 90%;
+    max-width: 500px;
+    background-color: white;
+    padding: 24px;
+    border-radius: 20px 20px 0 0; /* Rounded top corners */
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.1);
+    
+    /* Animation Timing */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1000;
+}
+
+/* The Active State */
+.modalApp.active {
+    transform: translateX(-50%) translateY(0); /* Slide into view */
+}
+.modalApp .confirm-btn {
+    width: 90%;
+    padding: 14px;
+    background-color: #2c3e50; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.3s ease, transform 0.1s ease;
+    margin-top: 10px; /* Extra space from the last input */
+}
+
+/*
+<div id="modalOverlay" class="overlay"></div>
+<div id="bookingModal" class="modalApp">
+    <h3>Confirm Booking</h3>
+    <p>Would you like to confirm your appointment with Dr. Martin?</p>
+    <button onclick="toggleModal()">Confirm</button>
+</div>
+
+function toggleModal() {
+    const modal = document.getElementById('bookingModal');
+    const overlay = document.getElementById('modalOverlay');
+    
+    modal.classList.toggle('active');
+    overlay.classList.toggle('visible');
+}
+*/

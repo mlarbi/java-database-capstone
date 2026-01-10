@@ -1,0 +1,21 @@
+package com.larbi.smartclinic.model;
+
+public class Login {
+
+    private String identifier; //email for Doctor/Patient, username for Admin
+    private String password;
+    
+	public String getIdentifier() {
+		return identifier;
+	}
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+}
